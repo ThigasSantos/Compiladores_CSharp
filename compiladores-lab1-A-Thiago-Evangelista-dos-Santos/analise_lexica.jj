@@ -1,0 +1,201 @@
+// Laboratório - Análise Léxica C#
+// Aluno: Thiago Evangelista dos Santos
+
+PARSER_BEGIN(lexico_csharp)
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
+public class lexico_csharp {
+    public static HashMap<Integer, String> tokenNames;
+
+    public static void initializeTokenNames() {
+        tokenNames = new HashMap<Integer, String>();
+        Field[] fields = lexico_csharpConstants.class.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType() == int.class) {
+                try {
+                    int value = field.getInt(null);
+                    String name = field.getName();
+                    tokenNames.put(value, name);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws ParseException, IOException {
+        lexico_csharp parser = new lexico_csharp(System.in);
+        initializeTokenNames();
+        FileWriter writer = new FileWriter("saida_csharp_tokens.txt");
+
+        while (true) {
+            Token t = parser.getNextToken();
+            if (t.kind == EOF) break;
+            String tokenName = tokenNames.get(t.kind);
+            String output = tokenName + " " + t.image;
+            System.out.println(output);
+            writer.write(output + "\n");
+        }
+        writer.close();
+    }
+}
+
+PARSER_END(lexico_csharp)
+
+SKIP :
+{
+  " " | "\t" | "\n" | "\f" | "\r" |
+  < COMMENT_BLOCK : "/*" (~["*"] | "*" ~["/"])* "*" "/" > |
+  < LINE_COMMENT : "//" (~["\n", "\r"])* > |
+  < XML_COMMENT : "///" (~["\n", "\r"])* > 
+}
+
+TOKEN :
+{
+// Literais Booleanos
+  < TRUE:  "true" > |
+  < FALSE: "false" > |
+
+// Literal Nulo
+  < NULL:  "null" > |
+
+// Literais Numericos Inteiros
+  < BINARY_INTEGER: "0" ["b", "B"] (["0", "1"])+ > |
+  < DECIMAL_INTEGER: (["1"-"9"] (["0"-"9"])*) (["U", "u"])? (["L", "l"] | "LL" | "ll")? > |
+  < HEXADECIMAL_INTEGER: "0" ["x", "X"] (["0"-"9", "a"-"f", "A"-"F"])+ (["U", "u"])? (["L", "l"] | "LL" | "ll")? > |
+
+// Palavras Reservadas
+  < ABSTRACT: "abstract" > |
+  < AS: "as" > |
+  < BASE: "base" > |
+  < BOOL: "bool" > |
+  < BREAK: "break" > |
+  < BYTE: "byte" > |
+  < CASE: "case" > |
+  < CATCH: "catch" > |
+  < CHAR: "char" > |
+  < CHECKED: "checked" > |
+  < CLASS: "class" > |
+  < CONST: "const" > |
+  < CONTINUE: "continue" > |
+  < DECIMAL: "decimal" > |
+  < KWDEFAULT: "default" > | // Não aceita a palavra DEFAULT como tokenname
+  < DELEGATE: "delegate" > |
+  < DO: "do" > |
+  < DOUBLE: "double" > |
+  < ELSE: "else" > |
+  < ENUM: "enum" > |
+  < EVENT: "event" > |
+  < EXPLICIT: "explicit" > |
+  < EXTERN: "extern" > |
+  < FINALLY: "finally" > |
+  < FIXED: "fixed" > |
+  < FLOAT: "float" > |
+  < FOR: "for" > |
+  < FOREACH: "foreach" > |
+  < GOTO: "goto" > |
+  < IF: "if" > |
+  < IMPLICIT: "implicit" > |
+  < IN: "in" > |
+  < INT: "int" > |
+  < INTERFACE: "interface" > |
+  < INTERNAL: "internal" > |
+  < IS: "is" > |
+  < LOCK: "lock" > |
+  < LONG: "long" > |
+  < NAMESPACE: "namespace" > |
+  < NEW: "new" > |
+  < OBJECT: "object" > |
+  < OPERATOR: "operator" > |
+  < OUT: "out" > |
+  < OVERRIDE: "override" > |
+  < PARAMS: "params" > |
+  < PRIVATE: "private" > |
+  < PROTECTED: "protected" > |
+  < PUBLIC: "public" > |
+  < READONLY: "readonly" > |
+  < REF: "ref" > |
+  < RETURN: "return" > |
+  < SBYTE: "sbyte" > |
+  < SEALED: "sealed" > |
+  < SHORT: "short" > |
+  < SIZEOF: "sizeof" > |
+  < STACKALLOC: "stackalloc" > |
+  < STATIC: "static" > |
+  < STRING: "string" > |
+  < STRUCT: "struct" > |
+  < SWITCH: "switch" > |
+  < THIS: "this" > |
+  < THROW: "throw" > |
+  < TRY: "try" > |
+  < TYPEOF: "typeof" > |
+  < UINT: "uint" > |
+  < ULONG: "ulong" > |
+  < UNCHECKED: "unchecked" > |
+  < UNSAFE: "unsafe" > |
+  < USHORT: "ushort" > |
+  < USING: "using" > |
+  < VIRTUAL: "virtual" > |
+  < VOID: "void" > |
+  < VOLATILE: "volatile" > |
+  < WHILE: "while" > |
+
+// Identificadores
+  < ID: (["a"-"z", "A"-"Z", "_"])(["a"-"z", "A"-"Z", "0"-"9", "_"])* > |
+
+// Auxiliares de escape
+  < #ASCII_ESCAPE: "\\" ["n","t","v","b","r","f","0","a","'", "\"","\\"] > |
+  < #HEX_ESCAPE: "\\x" (["0"-"9","a"-"f","A"-"F"])+ > |
+  < #OCTAL_ESCAPE: "\\" ["0"-"7"] (["0"-"7"]){0,2} > |
+  < #UNICODE4: "\\u" (["0"-"9","a"-"f","A"-"F"]){4} > |
+  < #UNICODE8: "\\U" (["0"-"9","a"-"f","A"-"F"]){8} > |
+
+// Verbatim string: @"…"
+  < VERBATIM_STRING:
+      "@\"" ( ~["\""] | "\"\"" )* "\""
+  > |
+
+// String literal padrão
+  < STRING_LITERAL:
+      "\"" 
+        ( ~["\"", "\\", "\n"] 
+        | <ASCII_ESCAPE> | <HEX_ESCAPE> | <OCTAL_ESCAPE> | <UNICODE4> | <UNICODE8>
+        )* 
+      "\""
+  > |
+
+// Operadores e Pontuação
+  < PLUS: "+" > | < MINUS: "-" > | < MULT: "*" > | < DIV: "/" > |
+  < ASSIGN: "=" > | < EQ: "==" > | < NEQ: "!=" > |
+  < LT: "<" > | < GT: ">" > | < LTE: "<=" > | < GTE: ">=" > |
+  < AND: "&&" > | < OR: "||" > | < NOT: "!" > |
+  < BITAND: "&" > | < BITOR: "|" > | < BITXOR: "^" > | < BITNOT: "~" > |
+  < QUESTION: "?" > | < COLON: ":" > | < NULL_COND: "?." > |
+  < NULL_COALESCE: "??" > | < LAMBDA: "=>" > |
+  < INCR: "++" > | < DECR: "--" > | < ARROW: "->" > |
+
+// Pontuadores
+  < LPAREN: "(" > | < RPAREN: ")" > |
+  < LBRACE: "{" > | < RBRACE: "}" > |
+  < LBRACKET: "[" > | < RBRACKET: "]" > |
+  < COMMA: "," > | < DOT: "." > | < SEMI: ";" > |
+  < DOUBLE_COLON: "::" > | < ELLIPSIS: "..." >
+}
+
+// Tratamento de diretivas de pré-processador
+TOKEN : {
+  < PRE_IF: "#if" > |
+  < PRE_ELSE: "#else" > |
+  < PRE_ENDIF: "#endif" > |
+  < PRE_REGION: "#region" > |
+  < PRE_ENDREGION: "#endregion" > |
+  < PRE_LINE: "#line" > |
+  < PRE_ERROR: "#error" > |
+  < PRE_WARNING: "#warning" > |
+  < PRE_DEFINE: "#define" > |
+  < PRE_UNDEF: "#undef" >
+}
