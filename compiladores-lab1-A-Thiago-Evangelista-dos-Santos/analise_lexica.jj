@@ -56,6 +56,19 @@ SKIP :
 
 TOKEN :
 {
+// Tratamento de diretivas de pré-processador
+  < PRE_IF: "#if" > |
+  < PRE_ELSE: "#else" > |
+  < PRE_ENDIF: "#endif" > |
+  < PRE_REGION: "#region" > |
+  < PRE_ENDREGION: "#endregion" > |
+  < PRE_LINE: "#line" > |
+  < PRE_ERROR: "#error" > |
+  < PRE_WARNING: "#warning" > |
+  < PRE_DEFINE: "#define" > |
+  < PRE_UNDEF: "#undef" > |
+
+
 // Literais Booleanos
   < TRUE:  "true" > |
   < FALSE: "false" > |
@@ -183,19 +196,5 @@ TOKEN :
   < LBRACE: "{" > | < RBRACE: "}" > |
   < LBRACKET: "[" > | < RBRACKET: "]" > |
   < COMMA: "," > | < DOT: "." > | < SEMI: ";" > |
-  < DOUBLE_COLON: "::" > | < ELLIPSIS: "..." >
-}
-
-// Tratamento de diretivas de pré-processador
-TOKEN : {
-  < PRE_IF: "#if" > |
-  < PRE_ELSE: "#else" > |
-  < PRE_ENDIF: "#endif" > |
-  < PRE_REGION: "#region" > |
-  < PRE_ENDREGION: "#endregion" > |
-  < PRE_LINE: "#line" > |
-  < PRE_ERROR: "#error" > |
-  < PRE_WARNING: "#warning" > |
-  < PRE_DEFINE: "#define" > |
-  < PRE_UNDEF: "#undef" >
+  < DOUBLE_COLON: "::" > | < ELLIPSIS: "..." > 
 }
