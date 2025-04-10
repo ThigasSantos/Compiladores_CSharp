@@ -13,277 +13,279 @@ public interface lexico_csharpConstants {
   /** RegularExpression Id. */
   int LINE_COMMENT = 7;
   /** RegularExpression Id. */
-  int XML_COMMENT = 8;
+  int PRE_IF = 8;
   /** RegularExpression Id. */
-  int PRE_IF = 9;
+  int PRE_ELSE = 9;
   /** RegularExpression Id. */
-  int PRE_ELSE = 10;
+  int PRE_ENDIF = 10;
   /** RegularExpression Id. */
-  int PRE_ENDIF = 11;
+  int PRE_REGION = 11;
   /** RegularExpression Id. */
-  int PRE_REGION = 12;
+  int PRE_ENDREGION = 12;
   /** RegularExpression Id. */
-  int PRE_ENDREGION = 13;
+  int PRE_LINE = 13;
   /** RegularExpression Id. */
-  int PRE_LINE = 14;
+  int PRE_ERROR = 14;
   /** RegularExpression Id. */
-  int PRE_ERROR = 15;
+  int PRE_WARNING = 15;
   /** RegularExpression Id. */
-  int PRE_WARNING = 16;
+  int PRE_DEFINE = 16;
   /** RegularExpression Id. */
-  int PRE_DEFINE = 17;
+  int PRE_UNDEF = 17;
   /** RegularExpression Id. */
-  int PRE_UNDEF = 18;
+  int TRUE = 18;
   /** RegularExpression Id. */
-  int TRUE = 19;
+  int FALSE = 19;
   /** RegularExpression Id. */
-  int FALSE = 20;
+  int NULL = 20;
   /** RegularExpression Id. */
-  int NULL = 21;
+  int BINARY_INTEGER = 21;
   /** RegularExpression Id. */
-  int BINARY_INTEGER = 22;
+  int DECIMAL_INTEGER = 22;
   /** RegularExpression Id. */
-  int DECIMAL_INTEGER = 23;
+  int HEXADECIMAL_INTEGER = 23;
   /** RegularExpression Id. */
-  int HEXADECIMAL_INTEGER = 24;
+  int ABSTRACT = 24;
   /** RegularExpression Id. */
-  int ABSTRACT = 25;
+  int AS = 25;
   /** RegularExpression Id. */
-  int AS = 26;
+  int BASE = 26;
   /** RegularExpression Id. */
-  int BASE = 27;
+  int BOOL = 27;
   /** RegularExpression Id. */
-  int BOOL = 28;
+  int BREAK = 28;
   /** RegularExpression Id. */
-  int BREAK = 29;
+  int BYTE = 29;
   /** RegularExpression Id. */
-  int BYTE = 30;
+  int CASE = 30;
   /** RegularExpression Id. */
-  int CASE = 31;
+  int CATCH = 31;
   /** RegularExpression Id. */
-  int CATCH = 32;
+  int CHAR = 32;
   /** RegularExpression Id. */
-  int CHAR = 33;
+  int CHECKED = 33;
   /** RegularExpression Id. */
-  int CHECKED = 34;
+  int CLASS = 34;
   /** RegularExpression Id. */
-  int CLASS = 35;
+  int CONST = 35;
   /** RegularExpression Id. */
-  int CONST = 36;
+  int CONTINUE = 36;
   /** RegularExpression Id. */
-  int CONTINUE = 37;
+  int DECIMAL = 37;
   /** RegularExpression Id. */
-  int DECIMAL = 38;
+  int KWDEFAULT = 38;
   /** RegularExpression Id. */
-  int KWDEFAULT = 39;
+  int DELEGATE = 39;
   /** RegularExpression Id. */
-  int DELEGATE = 40;
+  int DO = 40;
   /** RegularExpression Id. */
-  int DO = 41;
+  int DOUBLE = 41;
   /** RegularExpression Id. */
-  int DOUBLE = 42;
+  int ELSE = 42;
   /** RegularExpression Id. */
-  int ELSE = 43;
+  int ENUM = 43;
   /** RegularExpression Id. */
-  int ENUM = 44;
+  int EVENT = 44;
   /** RegularExpression Id. */
-  int EVENT = 45;
+  int EXPLICIT = 45;
   /** RegularExpression Id. */
-  int EXPLICIT = 46;
+  int EXTERN = 46;
   /** RegularExpression Id. */
-  int EXTERN = 47;
+  int FINALLY = 47;
   /** RegularExpression Id. */
-  int FINALLY = 48;
+  int FIXED = 48;
   /** RegularExpression Id. */
-  int FIXED = 49;
+  int FLOAT = 49;
   /** RegularExpression Id. */
-  int FLOAT = 50;
+  int FOR = 50;
   /** RegularExpression Id. */
-  int FOR = 51;
+  int FOREACH = 51;
   /** RegularExpression Id. */
-  int FOREACH = 52;
+  int GOTO = 52;
   /** RegularExpression Id. */
-  int GOTO = 53;
+  int IF = 53;
   /** RegularExpression Id. */
-  int IF = 54;
+  int IMPLICIT = 54;
   /** RegularExpression Id. */
-  int IMPLICIT = 55;
+  int IN = 55;
   /** RegularExpression Id. */
-  int IN = 56;
+  int INT = 56;
   /** RegularExpression Id. */
-  int INT = 57;
+  int INTERFACE = 57;
   /** RegularExpression Id. */
-  int INTERFACE = 58;
+  int INTERNAL = 58;
   /** RegularExpression Id. */
-  int INTERNAL = 59;
+  int IS = 59;
   /** RegularExpression Id. */
-  int IS = 60;
+  int LOCK = 60;
   /** RegularExpression Id. */
-  int LOCK = 61;
+  int LONG = 61;
   /** RegularExpression Id. */
-  int LONG = 62;
+  int NAMESPACE = 62;
   /** RegularExpression Id. */
-  int NAMESPACE = 63;
+  int NEW = 63;
   /** RegularExpression Id. */
-  int NEW = 64;
+  int OBJECT = 64;
   /** RegularExpression Id. */
-  int OBJECT = 65;
+  int OPERATOR = 65;
   /** RegularExpression Id. */
-  int OPERATOR = 66;
+  int OUT = 66;
   /** RegularExpression Id. */
-  int OUT = 67;
+  int OVERRIDE = 67;
   /** RegularExpression Id. */
-  int OVERRIDE = 68;
+  int PARAMS = 68;
   /** RegularExpression Id. */
-  int PARAMS = 69;
+  int PRIVATE = 69;
   /** RegularExpression Id. */
-  int PRIVATE = 70;
+  int PROTECTED = 70;
   /** RegularExpression Id. */
-  int PROTECTED = 71;
+  int PUBLIC = 71;
   /** RegularExpression Id. */
-  int PUBLIC = 72;
+  int READONLY = 72;
   /** RegularExpression Id. */
-  int READONLY = 73;
+  int REF = 73;
   /** RegularExpression Id. */
-  int REF = 74;
+  int RETURN = 74;
   /** RegularExpression Id. */
-  int RETURN = 75;
+  int SBYTE = 75;
   /** RegularExpression Id. */
-  int SBYTE = 76;
+  int SEALED = 76;
   /** RegularExpression Id. */
-  int SEALED = 77;
+  int SHORT = 77;
   /** RegularExpression Id. */
-  int SHORT = 78;
+  int SIZEOF = 78;
   /** RegularExpression Id. */
-  int SIZEOF = 79;
+  int STACKALLOC = 79;
   /** RegularExpression Id. */
-  int STACKALLOC = 80;
+  int STATIC = 80;
   /** RegularExpression Id. */
-  int STATIC = 81;
+  int STRING = 81;
   /** RegularExpression Id. */
-  int STRING = 82;
+  int STRUCT = 82;
   /** RegularExpression Id. */
-  int STRUCT = 83;
+  int SWITCH = 83;
   /** RegularExpression Id. */
-  int SWITCH = 84;
+  int THIS = 84;
   /** RegularExpression Id. */
-  int THIS = 85;
+  int THROW = 85;
   /** RegularExpression Id. */
-  int THROW = 86;
+  int TRY = 86;
   /** RegularExpression Id. */
-  int TRY = 87;
+  int TYPEOF = 87;
   /** RegularExpression Id. */
-  int TYPEOF = 88;
+  int UINT = 88;
   /** RegularExpression Id. */
-  int UINT = 89;
+  int ULONG = 89;
   /** RegularExpression Id. */
-  int ULONG = 90;
+  int UNCHECKED = 90;
   /** RegularExpression Id. */
-  int UNCHECKED = 91;
+  int UNSAFE = 91;
   /** RegularExpression Id. */
-  int UNSAFE = 92;
+  int USHORT = 92;
   /** RegularExpression Id. */
-  int USHORT = 93;
+  int USING = 93;
   /** RegularExpression Id. */
-  int USING = 94;
+  int VIRTUAL = 94;
   /** RegularExpression Id. */
-  int VIRTUAL = 95;
+  int VOID = 95;
   /** RegularExpression Id. */
-  int VOID = 96;
+  int VOLATILE = 96;
   /** RegularExpression Id. */
-  int VOLATILE = 97;
+  int WHILE = 97;
   /** RegularExpression Id. */
-  int WHILE = 98;
+  int SIMPLE_ID = 98;
   /** RegularExpression Id. */
-  int ID = 99;
+  int ESCAPED_ID = 99;
   /** RegularExpression Id. */
-  int ASCII_ESCAPE = 100;
+  int ID = 100;
   /** RegularExpression Id. */
-  int HEX_ESCAPE = 101;
+  int ASCII_ESCAPE = 101;
   /** RegularExpression Id. */
-  int OCTAL_ESCAPE = 102;
+  int HEX_ESCAPE = 102;
   /** RegularExpression Id. */
-  int UNICODE4 = 103;
+  int OCTAL_ESCAPE = 103;
   /** RegularExpression Id. */
-  int UNICODE8 = 104;
+  int UNICODE4 = 104;
   /** RegularExpression Id. */
-  int VERBATIM_STRING = 105;
+  int UNICODE8 = 105;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 106;
+  int VERBATIM_STRING = 106;
   /** RegularExpression Id. */
-  int PLUS = 107;
+  int STRING_LITERAL = 107;
   /** RegularExpression Id. */
-  int MINUS = 108;
+  int PLUS = 108;
   /** RegularExpression Id. */
-  int MULT = 109;
+  int MINUS = 109;
   /** RegularExpression Id. */
-  int DIV = 110;
+  int MULT = 110;
   /** RegularExpression Id. */
-  int ASSIGN = 111;
+  int DIV = 111;
   /** RegularExpression Id. */
-  int EQ = 112;
+  int ASSIGN = 112;
   /** RegularExpression Id. */
-  int NEQ = 113;
+  int EQ = 113;
   /** RegularExpression Id. */
-  int LT = 114;
+  int NEQ = 114;
   /** RegularExpression Id. */
-  int GT = 115;
+  int LT = 115;
   /** RegularExpression Id. */
-  int LTE = 116;
+  int GT = 116;
   /** RegularExpression Id. */
-  int GTE = 117;
+  int LTE = 117;
   /** RegularExpression Id. */
-  int AND = 118;
+  int GTE = 118;
   /** RegularExpression Id. */
-  int OR = 119;
+  int AND = 119;
   /** RegularExpression Id. */
-  int NOT = 120;
+  int OR = 120;
   /** RegularExpression Id. */
-  int BITAND = 121;
+  int NOT = 121;
   /** RegularExpression Id. */
-  int BITOR = 122;
+  int BITAND = 122;
   /** RegularExpression Id. */
-  int BITXOR = 123;
+  int BITOR = 123;
   /** RegularExpression Id. */
-  int BITNOT = 124;
+  int BITXOR = 124;
   /** RegularExpression Id. */
-  int QUESTION = 125;
+  int BITNOT = 125;
   /** RegularExpression Id. */
-  int COLON = 126;
+  int QUESTION = 126;
   /** RegularExpression Id. */
-  int NULL_COND = 127;
+  int COLON = 127;
   /** RegularExpression Id. */
-  int NULL_COALESCE = 128;
+  int NULL_COND = 128;
   /** RegularExpression Id. */
-  int LAMBDA = 129;
+  int NULL_COALESCE = 129;
   /** RegularExpression Id. */
-  int INCR = 130;
+  int LAMBDA = 130;
   /** RegularExpression Id. */
-  int DECR = 131;
+  int INCR = 131;
   /** RegularExpression Id. */
-  int ARROW = 132;
+  int DECR = 132;
   /** RegularExpression Id. */
-  int LPAREN = 133;
+  int ARROW = 133;
   /** RegularExpression Id. */
-  int RPAREN = 134;
+  int LPAREN = 134;
   /** RegularExpression Id. */
-  int LBRACE = 135;
+  int RPAREN = 135;
   /** RegularExpression Id. */
-  int RBRACE = 136;
+  int LBRACE = 136;
   /** RegularExpression Id. */
-  int LBRACKET = 137;
+  int RBRACE = 137;
   /** RegularExpression Id. */
-  int RBRACKET = 138;
+  int LBRACKET = 138;
   /** RegularExpression Id. */
-  int COMMA = 139;
+  int RBRACKET = 139;
   /** RegularExpression Id. */
-  int DOT = 140;
+  int COMMA = 140;
   /** RegularExpression Id. */
-  int SEMI = 141;
+  int DOT = 141;
   /** RegularExpression Id. */
-  int DOUBLE_COLON = 142;
+  int SEMI = 142;
   /** RegularExpression Id. */
-  int ELLIPSIS = 143;
+  int DOUBLE_COLON = 143;
+  /** RegularExpression Id. */
+  int ELLIPSIS = 144;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -298,7 +300,6 @@ public interface lexico_csharpConstants {
     "\"\\r\"",
     "<COMMENT_BLOCK>",
     "<LINE_COMMENT>",
-    "<XML_COMMENT>",
     "\"#if\"",
     "\"#else\"",
     "\"#endif\"",
@@ -389,6 +390,8 @@ public interface lexico_csharpConstants {
     "\"void\"",
     "\"volatile\"",
     "\"while\"",
+    "<SIMPLE_ID>",
+    "<ESCAPED_ID>",
     "<ID>",
     "<ASCII_ESCAPE>",
     "<HEX_ESCAPE>",
