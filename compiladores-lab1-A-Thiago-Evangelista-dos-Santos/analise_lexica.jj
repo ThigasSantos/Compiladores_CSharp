@@ -46,6 +46,7 @@ public class lexico_csharp {
 
 PARSER_END(lexico_csharp)
 
+
 SKIP :
 {
   " " | "\t" | "\n" | "\f" | "\r" |
@@ -53,32 +54,51 @@ SKIP :
   < LINE_COMMENT : "//" (~["\n", "\r"])* >
 }
 
+
 TOKEN :
 {
 // Tratamento de diretivas de pré-processador
-  < PRE_IF: "#if" > |
-  < PRE_ELSE: "#else" > |
-  < PRE_ENDIF: "#endif" > |
-  < PRE_REGION: "#region" > |
-  < PRE_ENDREGION: "#endregion" > |
-  < PRE_LINE: "#line" > |
-  < PRE_ERROR: "#error" > |
-  < PRE_WARNING: "#warning" > |
   < PRE_DEFINE: "#define" > |
   < PRE_UNDEF: "#undef" > |
+  < PRE_IF: "#if" > |
+  < PRE_ELIF: "#elif" > |
+  < PRE_ELSE: "#else" > |
+  < PRE_ENDIF: "#endif" > |
+  < PRE_LINE: "#line" > |
+  < PRE_ERROR: "#error" > |
+  < PRE_REGION: "#region" > |
+  < PRE_ENDREGION: "#endregion" > |
+  < PRE_NULLABLE: "#nullable" > |
+  < PRE_PRAGMA: "#pragma" > |
 
 
 // Literais Booleanos
   < TRUE:  "true" > |
   < FALSE: "false" > |
 
+
 // Literal Nulo
   < NULL:  "null" > |
 
+
 // Literais Numericos Inteiros
-  < BINARY_INTEGER: "0" ["b", "B"] (["0", "1"])+ > |
-  < DECIMAL_INTEGER: (["1"-"9"] (["0"-"9"])*) (["U", "u"])? (["L", "l"] | "LL" | "ll")? > |
-  < HEXADECIMAL_INTEGER: "0" ["x", "X"] (["0"-"9", "a"-"f", "A"-"F"])+ (["U", "u"])? (["L", "l"] | "LL" | "ll")? > |
+  < #DECORATED_DIGIT: (("_")*["0"-"9"])* > |
+  < #INTEGER_SUFIX: ("UL" | "Ul" | "uL" | "ul" | "LU" | "Lu" | "lU" | "lu" )? ( "U" | "u" )? ("L" | "l" )? > |
+  < BINARY_INTEGER: "0" ["b", "B"] (("_")* ["0", "1"])+ <INTEGER_SUFIX> > |
+  < DECIMAL_INTEGER: ("0")? | (["1"-"9"] <DECORATED_DIGIT> ) <INTEGER_SUFIX> > |
+  < HEXADECIMAL_INTEGER: "0" ["x", "X"] (("_")*["0"-"9", "a"-"f", "A"-"F"])+ <INTEGER_SUFIX> > |
+
+// Literal Numerico Real
+  < REAL_LITERAL:
+      (
+          ( ["0"-"9"] <DECORATED_DIGIT> )? "." ["0"-"9"] <DECORATED_DIGIT> ( ["e","E"] (["+","-"])? ["0"-"9"] <DECORATED_DIGIT> )?
+          |
+          ["0"-"9"] <DECORATED_DIGIT> ( ["e","E"] (["+","-"])? ["0"-"9"] <DECORATED_DIGIT> )
+      )
+      ( ["f","F","d","D","m","M"] )?
+      |
+      ["0"-"9"] <DECORATED_DIGIT> ( ["f","F","d","D","m","M"] )
+  > |
 
 // Palavras Reservadas
   < ABSTRACT: "abstract" > |
@@ -156,10 +176,39 @@ TOKEN :
   < VOLATILE: "volatile" > |
   < WHILE: "while" > |
 
-// Identificadores
-  < SIMPLE_ID: (["a"-"z", "A"-"Z", "_"])(["a"-"z", "A"-"Z", "0"-"9", "_"])* > |
-  < ESCAPED_ID: "@" <SIMPLE_ID> > |
-  < ID: <SIMPLE_ID> | <ESCAPED_ID> > |
+
+// Palavras Reservadas Contextuais
+  < ADD: "add" > |
+  < ALIAS: "alias" > |
+  < ASCENDING: "ascending" > |
+  < ASYNC: "async" > |
+  < AWAIT: "await" > |
+  < BY: "by" > |
+  < DESCENDING: "descending" > |
+  < DYNAMIC: "dynamic" > |
+  < EQUALS: "equals" > |
+  < FROM: "from" > |
+  < GET: "get" > |
+  < GLOBAL: "global" > |
+  < GROUP: "group" > |
+  < INTO: "into" > |
+  < JOIN: "join" > |
+  < LET: "let" > |
+  < NAMEOF: "nameof" > |
+  < NOTNULL: "notnull" > |
+  < ON: "on" > |
+  < ORDERBY: "orderby" > |
+  < PARTIAL: "partial" > |
+  < REMOVE: "remove" > |
+  < SELECT: "select" > |
+  < SET: "set" > |
+  < UNMANAGED: "unmanaged" > |
+  < VALUE: "value" > |
+  < VAR: "var" > |
+  < WHEN: "when" > |
+  < WHERE: "where" > |
+  < YIELD: "yield" > |
+
 
 // Auxiliares de escape
   < #ASCII_ESCAPE: "\\" ["n","t","v","b","r","f","0","a","'", "\"","\\"] > |
@@ -168,19 +217,57 @@ TOKEN :
   < #UNICODE4: "\\u" (["0"-"9","a"-"f","A"-"F"]){4} > |
   < #UNICODE8: "\\U" (["0"-"9","a"-"f","A"-"F"]){8} > |
 
-// Verbatim string: @"…"
-  < VERBATIM_STRING:
-      "@\"" ( ~["\""] | "\"\"" )* "\""
-  > |
+
+// Char Literal
+  < CHAR_LITERAL:
+    "'" ( ~["'", "\\", "\n", "\r"]
+      | <ASCII_ESCAPE> | <HEX_ESCAPE> | <UNICODE4> | <UNICODE8>                
+    ) "'" > |
+
+
+// Verbatim string: 
+  < VERBATIM_STRING: "@\"" ( ~["\""] | "\"\"" )* "\"" > |
+
 
 // String literal 
   < STRING_LITERAL:
-      "\"" 
-        ( ~["\"", "\\", "\n"] 
-        | <ASCII_ESCAPE> | <HEX_ESCAPE> | <OCTAL_ESCAPE> | <UNICODE4> | <UNICODE8>
-        )* 
+    "\"" ( ~["\"", "\\", "\n"] 
+      | <ASCII_ESCAPE> | <HEX_ESCAPE> | <UNICODE4> | <UNICODE8>
+    )*  "\"" > |
+
+
+// String literal interpolada
+  < INTERPOLATED_LITERAL_STRING:
+      "$\"" 
+      (
+        ( ~["\\", "{", "\"", "\n", "\r"] 
+          | <ASCII_ESCAPE> | <HEX_ESCAPE> | <UNICODE4> | <UNICODE8>
+          | "{{" | "}}" | "\\\"" 
+        )*
+        ( "{" (~["}", "\n", "\r"])* "}"
+          ( ~["\\", "{", "\"", "\n", "\r"] 
+            | <ASCII_ESCAPE> | <HEX_ESCAPE> | <UNICODE4> | <UNICODE8>
+            | "{{" | "}}" | "\\\"" 
+          )*
+        )*
+      )
       "\""
   > |
+
+
+// String verbatim interpolada $@ ou @$
+  < INTERPOLATED_VERBATIM_STRING:
+      ( "$@\"" | "@$\"" )
+      (
+        ( ~["{", "\""] | "\"\"" | "{{" | "}}" )*
+        (
+          "{" (~["}"])* "}"
+          ( ~["{", "\""] | "\"\"" | "{{" | "}}" )*
+        )*
+      )
+      "\""
+  > |
+
 
 // Operadores e Pontuação
   < PLUS: "+" > | < MINUS: "-" > | < MULT: "*" > | < DIV: "/" > |
@@ -192,10 +279,18 @@ TOKEN :
   < NULL_COALESCE: "??" > | < LAMBDA: "=>" > |
   < INCR: "++" > | < DECR: "--" > | < ARROW: "->" > |
 
+
 // Pontuadores
   < LPAREN: "(" > | < RPAREN: ")" > |
   < LBRACE: "{" > | < RBRACE: "}" > |
   < LBRACKET: "[" > | < RBRACKET: "]" > |
   < COMMA: "," > | < DOT: "." > | < SEMI: ";" > |
-  < DOUBLE_COLON: "::" > | < ELLIPSIS: "..." > 
+  < DOUBLE_COLON: "::" > | < ELLIPSIS: "..." > |
+
+
+// Identificadores
+  < #SIMPLE_ID: ( ["a"-"z","A"-"Z","_"] | <UNICODE4> | <UNICODE8> ) ( ["a"-"z","A"-"Z","0"-"9","_"] | <UNICODE4> | <UNICODE8> )* > |
+  < #ESCAPED_ID: "@" <SIMPLE_ID> > |
+  < ID: <SIMPLE_ID> | <ESCAPED_ID> > 
+
 }

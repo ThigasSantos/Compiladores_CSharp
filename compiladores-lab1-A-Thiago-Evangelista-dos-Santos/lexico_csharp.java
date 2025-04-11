@@ -55,12 +55,14 @@ public class lexico_csharp implements lexico_csharpConstants {
   static private int[] jj_la1_2;
   static private int[] jj_la1_3;
   static private int[] jj_la1_4;
+  static private int[] jj_la1_5;
   static {
       jj_la1_init_0();
       jj_la1_init_1();
       jj_la1_init_2();
       jj_la1_init_3();
       jj_la1_init_4();
+      jj_la1_init_5();
    }
    private static void jj_la1_init_0() {
       jj_la1_0 = new int[] {};
@@ -76,6 +78,9 @@ public class lexico_csharp implements lexico_csharpConstants {
    }
    private static void jj_la1_init_4() {
       jj_la1_4 = new int[] {};
+   }
+   private static void jj_la1_init_5() {
+      jj_la1_5 = new int[] {};
    }
 
   /** Constructor with InputStream. */
@@ -213,7 +218,7 @@ public class lexico_csharp implements lexico_csharpConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[145];
+    boolean[] la1tokens = new boolean[183];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -236,10 +241,13 @@ public class lexico_csharp implements lexico_csharpConstants {
           if ((jj_la1_4[i] & (1<<j)) != 0) {
             la1tokens[128+j] = true;
           }
+          if ((jj_la1_5[i] & (1<<j)) != 0) {
+            la1tokens[160+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 145; i++) {
+    for (int i = 0; i < 183; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
