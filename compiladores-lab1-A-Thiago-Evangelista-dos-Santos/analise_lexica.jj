@@ -1,4 +1,4 @@
-// Laboratório - Análise Léxica C#
+// Laboratorio - Analise Lexica C#
 // Aluno: Thiago Evangelista dos Santos
 
 PARSER_BEGIN(lexico_csharp)
@@ -57,7 +57,7 @@ SKIP :
 
 TOKEN :
 {
-// Tratamento de diretivas de pré-processador
+// Tratamento de diretivas de pre-processador
   < PRE_DEFINE: "#define" > |
   < PRE_UNDEF: "#undef" > |
   < PRE_IF: "#if" > |
@@ -84,9 +84,10 @@ TOKEN :
 // Literais Numericos Inteiros
   < #DECORATED_DIGIT: (("_")*["0"-"9"])* > |
   < #INTEGER_SUFIX: ("UL" | "Ul" | "uL" | "ul" | "LU" | "Lu" | "lU" | "lu" )? ( "U" | "u" )? ("L" | "l" )? > |
-  < BINARY_INTEGER: "0" ["b", "B"] (("_")* ["0", "1"])+ <INTEGER_SUFIX> > |
-  < DECIMAL_INTEGER: ("0")? | (["1"-"9"] <DECORATED_DIGIT> ) <INTEGER_SUFIX> > |
-  < HEXADECIMAL_INTEGER: "0" ["x", "X"] (("_")*["0"-"9", "a"-"f", "A"-"F"])+ <INTEGER_SUFIX> > |
+  < #BINARY_INTEGER: "0" ["b", "B"] (("_")* ["0", "1"])+ <INTEGER_SUFIX> > |
+  < #DECIMAL_INTEGER: ("0")? | (["1"-"9"] <DECORATED_DIGIT> ) <INTEGER_SUFIX> > |
+  < #HEXADECIMAL_INTEGER: "0" ["x", "X"] (("_")*["0"-"9", "a"-"f", "A"-"F"])+ <INTEGER_SUFIX> > |
+  < LITERAL_INTEGER: <BINARY_INTEGER> | <DECIMAL_INTEGER> | <HEXADECIMAL_INTEGER> > |
 
 // Literal Numerico Real
   < REAL_LITERAL:
@@ -115,7 +116,7 @@ TOKEN :
   < CONST: "const" > |
   < CONTINUE: "continue" > |
   < DECIMAL: "decimal" > |
-  < KWDEFAULT: "default" > | // Não aceita a palavra DEFAULT como tokenname
+  < KWDEFAULT: "default" > | // Nao aceita a palavra DEFAULT como tokenname
   < DELEGATE: "delegate" > |
   < DO: "do" > |
   < DOUBLE: "double" > |
@@ -226,18 +227,20 @@ TOKEN :
 
 
 // Verbatim string: 
-  < VERBATIM_STRING: "@\"" ( ~["\""] | "\"\"" )* "\"" > |
+  < #VERBATIM_STRING: "@\"" ( ~["\""] | "\"\"" )* "\"" > |
 
 
 // String literal 
-  < STRING_LITERAL:
+  < #SIMPLE_STRING:
     "\"" ( ~["\"", "\\", "\n"] 
       | <ASCII_ESCAPE> | <HEX_ESCAPE> | <UNICODE4> | <UNICODE8>
     )*  "\"" > |
 
+  < LITERAL_STRING: <SIMPLE_STRING> | <VERBATIM_STRING> > |
+
 
 // String literal interpolada
-  < INTERPOLATED_LITERAL_STRING:
+  < #INTERPOLATED_SIMPLE_STRING:
       "$\"" 
       (
         ( ~["\\", "{", "\"", "\n", "\r"] 
@@ -256,7 +259,7 @@ TOKEN :
 
 
 // String verbatim interpolada $@ ou @$
-  < INTERPOLATED_VERBATIM_STRING:
+  < #INTERPOLATED_VERBATIM_STRING:
       ( "$@\"" | "@$\"" )
       (
         ( ~["{", "\""] | "\"\"" | "{{" | "}}" )*
@@ -268,8 +271,10 @@ TOKEN :
       "\""
   > |
 
+  < INTERPOLATED_LITERAL_STRING: <INTERPOLATED_SIMPLE_STRING> | <INTERPOLATED_VERBATIM_STRING> > |
 
-// Operadores e Pontuação
+
+// Operadores e Pontuacao
   < PLUS: "+" > | < MINUS: "-" > | < MULT: "*" > | < DIV: "/" > |
   < ASSIGN: "=" > | < EQ: "==" > | < NEQ: "!=" > |
   < LT: "<" > | < GT: ">" > | < LTE: "<=" > | < GTE: ">=" > |
