@@ -341,33 +341,35 @@ public interface lexico_csharpConstants {
   /** RegularExpression Id. */
   int ARROW = 171;
   /** RegularExpression Id. */
-  int LPAREN = 172;
+  int MOD = 172;
   /** RegularExpression Id. */
-  int RPAREN = 173;
+  int LPAREN = 173;
   /** RegularExpression Id. */
-  int LBRACE = 174;
+  int RPAREN = 174;
   /** RegularExpression Id. */
-  int RBRACE = 175;
+  int LBRACE = 175;
   /** RegularExpression Id. */
-  int LBRACKET = 176;
+  int RBRACE = 176;
   /** RegularExpression Id. */
-  int RBRACKET = 177;
+  int LBRACKET = 177;
   /** RegularExpression Id. */
-  int COMMA = 178;
+  int RBRACKET = 178;
   /** RegularExpression Id. */
-  int DOT = 179;
+  int COMMA = 179;
   /** RegularExpression Id. */
-  int SEMI = 180;
+  int DOT = 180;
   /** RegularExpression Id. */
-  int DOUBLE_COLON = 181;
+  int SEMI = 181;
   /** RegularExpression Id. */
-  int ELLIPSIS = 182;
+  int DOUBLE_COLON = 182;
   /** RegularExpression Id. */
-  int SIMPLE_ID = 183;
+  int ELLIPSIS = 183;
   /** RegularExpression Id. */
-  int ESCAPED_ID = 184;
+  int SIMPLE_ID = 184;
   /** RegularExpression Id. */
-  int ID = 185;
+  int ESCAPED_ID = 185;
+  /** RegularExpression Id. */
+  int ID = 186;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -546,6 +548,7 @@ public interface lexico_csharpConstants {
     "\"++\"",
     "\"--\"",
     "\"->\"",
+    "\"%\"",
     "\"(\"",
     "\")\"",
     "\"{\"",

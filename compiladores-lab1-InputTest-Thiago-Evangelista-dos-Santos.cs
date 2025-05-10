@@ -155,12 +155,12 @@ namespace ComplexCSharpExample
             Console.WriteLine($"Coordenadas: X = {coord.X}, Y = {coord.Y}");
             Console.WriteLine($"Status: {Status.Active}");
 
-            var person = new Person("Alice", 25__21312LU);
+            var person = new Person("Alice", 25LU);
             var container = new Container<Person>();
             container.Add(person);
             Console.WriteLine(container[0]);
 
-            var sample = new SampleClass { Id = 0, Name = "Test" };
+            var sample = new SampleClass { Id = 1, Name = "Test" };
             sample.OnProcessed += (sender, e) => Console.WriteLine("Processed event fired!");
             sample.Process();
             sample.PatternExample(123);

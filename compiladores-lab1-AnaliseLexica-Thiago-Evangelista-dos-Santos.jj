@@ -85,7 +85,7 @@ TOKEN :
   < #DECORATED_DIGIT: (("_")*["0"-"9"])* > |
   < #INTEGER_SUFIX: ("UL" | "Ul" | "uL" | "ul" | "LU" | "Lu" | "lU" | "lu" )? ( "U" | "u" )? ("L" | "l" )? > |
   < #BINARY_INTEGER: "0" ["b", "B"] (("_")* ["0", "1"])+ <INTEGER_SUFIX> > |
-  < #DECIMAL_INTEGER: ("0" | (["1"-"9"] <DECORATED_DIGIT> )) <INTEGER_SUFIX> > |
+  < #DECIMAL_INTEGER: ("0")? | (["1"-"9"] <DECORATED_DIGIT> ) <INTEGER_SUFIX> > |
   < #HEXADECIMAL_INTEGER: "0" ["x", "X"] (("_")*["0"-"9", "a"-"f", "A"-"F"])+ <INTEGER_SUFIX> > |
   < LITERAL_INTEGER: <BINARY_INTEGER> | <DECIMAL_INTEGER> | <HEXADECIMAL_INTEGER> > |
 
@@ -282,7 +282,7 @@ TOKEN :
   < BITAND: "&" > | < BITOR: "|" > | < BITXOR: "^" > | < BITNOT: "~" > |
   < QUESTION: "?" > | < COLON: ":" > | < NULL_COND: "?." > |
   < NULL_COALESCE: "??" > | < LAMBDA: "=>" > |
-  < INCR: "++" > | < DECR: "--" > | < ARROW: "->" > | < MOD: "%" > |
+  < INCR: "++" > | < DECR: "--" > | < ARROW: "->" > |
 
 
 // Pontuadores
