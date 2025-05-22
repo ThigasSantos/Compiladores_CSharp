@@ -32,7 +32,7 @@ public class lexico_csharp implements lexico_csharpConstants {
             Token t = parser.getNextToken();
             if (t.kind == EOF) break;
             String tokenName = tokenNames.get(t.kind);
-            String output = tokenName + " " + t.image;
+            String output = tokenName;
             System.out.println(output);
             writer.write(output + "\n");
         }
