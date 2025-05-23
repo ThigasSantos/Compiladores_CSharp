@@ -1,10 +1,5 @@
 using System;
 
-public struct Ponto {
-    public int x;
-    public int y;
-}
-
 class Program {
     static double Func(Ponto[] v, int n) {
         if (n <= 0) {
@@ -15,13 +10,13 @@ class Program {
 
         double res = 0.25e-13;
 
-        for (int i = n - 1; i >= 0 && v[i].x > 0; --i) {
+        while (i >= 0 && v[i].x ) {
             double temp = v[i].y * v[i].x % 123;
 
             if (temp < 0.0) {
-                res -= res * 0.02 + Func(v, n - 1) * temp;
+                res = res * 0.02 + Func(v, n - 1) * temp;
             } else {
-                res += res * 300 + Func(v, n - 2) * temp;
+                res = res * 300 + Func(v, n - 2) * temp;
                 Console.WriteLine("Estranho, ne?");
             }
         }
