@@ -14,7 +14,7 @@ public class lexico_csharp implements lexico_csharpConstants {
             if (field.getType() == int.class) {
                 try {
                     int value = field.getInt(null);
-                    String name = field.getName();
+                    String name = field.getName() ;
                     tokenNames.put(value, name);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -32,7 +32,7 @@ public class lexico_csharp implements lexico_csharpConstants {
             Token t = parser.getNextToken();
             if (t.kind == EOF) break;
             String tokenName = tokenNames.get(t.kind);
-            String output = tokenName;
+            String output = tokenName + " " + t.image;
             System.out.println(output);
             writer.write(output + "\n");
         }

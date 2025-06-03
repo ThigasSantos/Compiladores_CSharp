@@ -18,7 +18,7 @@ public class lexico_csharp {
             if (field.getType() == int.class) {
                 try {
                     int value = field.getInt(null);
-                    String name = field.getName();
+                    String name = field.getName() ;
                     tokenNames.put(value, name);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
