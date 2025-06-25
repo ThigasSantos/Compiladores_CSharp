@@ -1,32 +1,27 @@
 #ifndef FUNCAO_H
 #define FUNCAO_H
 
-#include "../Arvore.hpp"     // Para No_arv_parse se ainda for usado ou para Arvore::Node
-#include "Comando.h"      // Para herdar de Comando
-#include "ID.h"           // Para o nome da função e parâmetros
-#include "Tipo.h"         // Para os tipos
-#include "Variavel.h"     // Para os parâmetros da função
-#include "CodeBlock.h"    // Para o corpo da função
-#include "TabelaDeSimbolos.h" // Para a análise semântica e simulação
-#include "Valor.h"        // Para os valores retornados
+#include "../Arvore.hpp"    
+#include "Comando.h"      
+#include "ID.h"           
+#include "Tipo.h"        
+#include "Variavel.h"     
+#include "CodeBlock.h"    
+#include "TabelaDeSimbolos.h" 
+#include "Valor.h"        
 
-// Forward declaration para No_arv_parse (se não estiver em Arvore.hpp)
-class No_arv_parse; // Se Arvore::Node é o No_arv_parse, remova esta linha
 
-class Funcao : public Comando { // Funcao herda de MemberDecl agora
+class No_arv_parse; 
+
+class Funcao : public Comando { 
 public:
-    // ATENÇÃO: Se No_arv_parse é o mesmo que Arvore::Node,
-    //          você pode usar Arvore::Node direto.
-    //          Se No_arv_parse é uma classe separada, mantenha assim.
-    //          Estou assumindo que No_arv_parse é o tipo base que seu parser manipula.
-    static Funcao* extrair(No_arv_parse *no); // Método estático para extrair da árvore de parse
 
-    // Construtor padrão (pode ser private se você só usa o extrair)
+    static Funcao* extrair(No_arv_parse *no); 
+
     Funcao();
 
-    // Membros da classe (renomeados para consistência)
-    ID* nome_funcao; // Mantido o nome original para evitar mais quebras por agora
-    Tipo* tipo_retorno; // Mantido o nome original
+    ID* nome_funcao; 
+    Tipo* tipo_retorno; 
     std::vector<Variavel*> parametros;
     CodeBlock* code_block;
 

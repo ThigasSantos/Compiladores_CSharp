@@ -13,6 +13,7 @@
 #include "ExpressaoNumero.h"
 #include "ExpressaoVariavel.h"
 #include "ExpressaoChamada.h"
+#include "ExpressaoBooleana.h"
 
 #include <iostream>
 
@@ -59,8 +60,10 @@ Expressao* Expressao::extrair(No_arv_parse* no) {
             return ExpressaoNot::extrair(no);
 
         // Literais e variáveis
-        case 71: case 72: case 73: case 74: case 75: case 76: case 77: // primitivos
+        case 71: case 77: // primitivos
             return ExpressaoNumero::extrair(no);
+        case 75: case 76:
+            return ExpressaoBooleana::extrair(no);
         case 78: // ID_RULE
             return ExpressaoVariavel::extrair(no);
         case 79: // chamada de função

@@ -67,9 +67,9 @@ int main(int argc, char * argv[]) {
   }
 
   auto* memberDecl = memberDecls->filhos[0];  // regra 12: MEMBER_DECL
-  cerr << "[main] Extraindo função a partir do nó regra " << memberDecl->regra << endl;
+  // cerr << "[main] Extraindo função a partir do nó regra " << memberDecl->regra << endl;
 
-  cerr << "[main] Chamando Funcao::extrair...\n";
+  // cerr << "[main] Chamando Funcao::extrair...\n";
   auto* func = Funcao::extrair(memberDecl);
   if (!func) {
       cerr << "Erro: Funcao::extrair retornou nullptr (regra = "
@@ -79,32 +79,24 @@ int main(int argc, char * argv[]) {
 
   func->debug(0);
 
-
-  cerr << "[main] Caminho da árvore:\n";
-  cerr << "  program: " << program->regra << "\n";
-  cerr << "  classDecl: " << classDecl->regra << "\n";
-  cerr << "  memberDecls: " << memberDecls->regra << "\n";
-  cerr << "  memberDecl: " << memberDecl->regra << "\n";
-
-
   cerr << "[main] Preparando parametros de teste\n";
   // Exemplo de chamada do analisador semantico.
   vector<Valor*> parametros_passados;
   for (auto* paramDef : func->parametros) {
       const string &tipo = paramDef->tipo->nome;
       if (tipo == "int") {
-          parametros_passados.push_back(new Int(1));
+          parametros_passados.push_back(new Int(3));
       } else if (tipo == "float") {
-          parametros_passados.push_back(new Float(1.0f));
+          parametros_passados.push_back(new Float(1.3f));
       } else if (tipo == "bool") {
-          parametros_passados.push_back(new Bool(false));
+          parametros_passados.push_back(new Bool(true));
       } else {
           cerr << "Tipo de parâmetro não suportado: " << tipo << endl;
           return 1;
       }
   }
 
-  cout << "Ultimo valor calculado:" << endl;
+  
   cout << Analisador::calcula_ultimo_valor(func, parametros_passados) << endl;
 
   return 0;

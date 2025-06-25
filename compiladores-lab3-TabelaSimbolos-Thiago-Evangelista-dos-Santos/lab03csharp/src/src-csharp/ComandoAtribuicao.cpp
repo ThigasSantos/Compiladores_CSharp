@@ -5,12 +5,12 @@
 using namespace std;
 
 ComandoAtribuicao::ComandoAtribuicao() : expressao(nullptr) {}
+
 ComandoAtribuicao::~ComandoAtribuicao() {
     delete expressao;
 }
 
 ComandoAtribuicao* ComandoAtribuicao::extrair(No_arv_parse* no) {
-    // no é o nó VARIABLE_ASSIGN -> ID_RULE ASSIGN EXPRESSION
     if (!no) return nullptr;
     auto* cmd = new ComandoAtribuicao();
     cmd->expressao = ExpressaoAtribuicao::extrair(no);
@@ -22,16 +22,26 @@ ComandoAtribuicao* ComandoAtribuicao::extrair(No_arv_parse* no) {
 }
 
 Valor* ComandoAtribuicao::simular_execucao(TabelaDeSimbolos* tabela) {
-    // Executa a expressão de atribuição (que já faz o update na tabela)
     if (expressao) {
         expressao->simular_execucao(tabela);
+    } else {
+        cerr << "[ComandoAtribuicao::simular_execucao] Expressão nula" << endl;
     }
-    // Comando de atribuição não retorna Valor*, só atualiza ultimoValor
     return nullptr;
 }
 
+vector<Valor*> ComandoAtribuicao::analisar_semantica(TabelaDeSimbolos* tabela) {
+    if (expressao) {
+        Valor* resultado = expressao->analisar_semantica(tabela);
+        if (!resultado) {
+            cerr << "[ComandoAtribuicao::analisar_semantica] Falha: retorno nulo da análise" << endl;
+        }
+    }
+    return {};
+}
+
 void ComandoAtribuicao::debug(int t) {
-    for(int i = 0; i < t; ++i) std::cerr << "  ";
+    for (int i = 0; i < t; ++i) std::cerr << "  ";
     cerr << "[Atrib] ";
     if (expressao) {
         expressao->debug(0);

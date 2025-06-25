@@ -3,13 +3,27 @@
 #include "../debug-util.hpp"
 
 ComandoIf *ComandoIf::extrair(No_arv_parse *no) {
-  auto * s = new ComandoIf();
+  if (!no || no->regra != 29 || no->filhos.size() != 6) {
+    cerr << "[ComandoIf::extrair] ERRO: Regra inválida ou estrutura inesperada. Regra=" 
+         << (no ? no->regra : -1) << endl;
+    return nullptr;
+  }
 
-  s->expr = Expressao::extrair(no->filhos[1]->filhos[0]);
-  s->if_block = CodeBlock::extrair(no->filhos[2]);
+  auto *s = new ComandoIf();
 
-  if (no->regra == 13) {
-    s->else_block = CodeBlock::extrair(no->filhos[3]->filhos[1]);
+  // filhos: IF, LPAREN, EXPRESSION, RPAREN, STATEMENT, ELSE_STATEMENT
+  s->expr = Expressao::extrair(no->filhos[2]);
+  s->if_block = Comando::extrair(no->filhos[4]);
+
+  No_arv_parse *else_stmt = no->filhos[5];
+  if (else_stmt->regra == 36 && else_stmt->filhos.size() == 2) {
+    s->else_block = Comando::extrair(else_stmt->filhos[1]); // STATEMENT
+  } else if (else_stmt->regra == 37) {
+    s->else_block = nullptr; // ε
+  } else {
+    cerr << "[ComandoIf::extrair] ERRO: ELSE_STATEMENT inesperado. Regra=" << else_stmt->regra << endl;
+    delete s;
+    return nullptr;
   }
 
   return s;

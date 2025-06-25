@@ -24,7 +24,7 @@ CodeBlock* CodeBlock::extrair(No_arv_parse *no) {
         if (comando) {
           block->statements.push_back(comando);
         } else {
-          cerr << "[CodeBlock::extrair] comando nulo extraído da regra " << stmt->regra << endl;
+        //  cerr << "[CodeBlock::extrair] comando nulo extraído da regra " << stmt->regra << endl;
         }
       }
     }
@@ -57,11 +57,11 @@ vector<Valor*> CodeBlock::analisar_semantica(TabelaDeSimbolos *tabela_de_simbolo
 
   for (auto *stmt : statements) {
     if (!stmt) {
-      cerr << "[CodeBlock::analisar_semantica] Ignorando comando nulo." << endl;
+      // cerr << "[CodeBlock::analisar_semantica] Ignorando comando nulo." << endl;
       continue;
     }
 
-    cerr << "[CodeBlock::analisar_semantica] Analisando comando:" << endl;
+    // cerr << "[CodeBlock::analisar_semantica] Analisando comando:" << endl;
     stmt->debug(4);
 
     try {

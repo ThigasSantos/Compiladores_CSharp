@@ -10,24 +10,28 @@ ExpressaoNumero *ExpressaoNumero::extrair(No_arv_parse *no) {
   auto no_number = no->filhos[0];
   bool signal = false;
 
-  if (no->regra == 66) {
+  if (no->regra == 65) {  // número negativo
     signal = true;
     no_number = no->filhos[1];
   }
 
-  // Verificação segura
-  if (no_number->filhos.empty()) {
-    cerr << "[ExpressaoNumero::extrair] ERRO: no_number não tem filhos." << endl;
+  string token, lexema;
+
+  // CASO 1: no_number é um terminal
+  if (no_number->regra == -1) {
+    token = no_number->simb;
+    lexema = no_number->dado_extra;
+  }
+  // CASO 2: no_number tem filhos e o terminal está dentro
+  else if (!no_number->filhos.empty()) {
+    token = no_number->filhos[0]->simb;
+    lexema = no_number->filhos[0]->dado_extra;
+  }
+  else {
+    cerr << "[ExpressaoNumero::extrair] ERRO: nó sem filhos e não-terminal." << endl;
     delete e;
     return nullptr;
   }
-
-  cerr << "[ExpressaoNumero::extrair] Regra: " << no->regra
-     << " | no_number->filhos.size(): " << no_number->filhos.size() << endl;
-
-
-  const string &token = no_number->filhos[0]->simb;
-  const string &lexema = no_number->filhos[0]->dado_extra;
 
   if (token == "LITERAL_INTEGER") {
     int v = stoi(lexema);

@@ -3,6 +3,9 @@
 
 #include "Comando.h"
 #include "ExpressaoAtribuicao.h"
+#include "TabelaDeSimbolos.h"
+
+using namespace std;
 
 // Representa o comando de atribuição: VARIABLE_ASSIGN ';'
 class ComandoAtribuicao : public Comando {
@@ -18,6 +21,9 @@ public:
 
     // Simula execução: realiza a atribuição e não interrompe o fluxo
     Valor* simular_execucao(TabelaDeSimbolos* tabela) override;
+
+    // Análise semântica: verifica se a atribuição é válida
+    vector<Valor*> analisar_semantica(TabelaDeSimbolos* tabela_de_simbolos) override;
 
     // Debug imprime a atribuição com indentação
     void debug(int t) override;

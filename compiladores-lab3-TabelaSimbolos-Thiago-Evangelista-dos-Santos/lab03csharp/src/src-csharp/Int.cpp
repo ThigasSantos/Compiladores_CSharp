@@ -11,7 +11,6 @@ Int::Int(const string& str) {
   valor->intVal = atoi(str.c_str());
 }
 
-
 string Int::toString() const {
   return to_string(valor->intVal);
 }
@@ -26,7 +25,6 @@ void Int::atribuir(Valor *v) {
   }
 }
 
-
 Valor * Int::operator+(const Valor &v) const {
   if(v.tipo() == "float") return new Float(valor->intVal + v.valor->floatVal);
   if(v.tipo() == "int") return new Int(valor->intVal + v.valor->intVal);
@@ -35,7 +33,6 @@ Valor * Int::operator+(const Valor &v) const {
   throw std::invalid_argument("ArgumentoInvalido");
 }
 
-
 Valor * Int::operator-(const Valor &v) const {
   if(v.tipo() == "float") return new Float(valor->intVal - v.valor->floatVal);
   if(v.tipo() == "int") return new Int(valor->intVal - v.valor->intVal);
@@ -43,7 +40,6 @@ Valor * Int::operator-(const Valor &v) const {
   std::cerr << "\n!!!" << tipo() << " - " << v.tipo() << " não é valido" << std::endl;
   throw std::invalid_argument("ArgumentoInvalido");
 }
-
 
 Valor * Int::operator*(const Valor &v) const {
   if(v.tipo() == "float") return new Float(valor->intVal * v.valor->floatVal);

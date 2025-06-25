@@ -8,6 +8,7 @@
 #include "ComandoReturn.h"
 #include "DeclaracaoVariavel.h"
 #include "ComandoAtribuicao.h"
+#include "ComandoWhile.h"
 #include "Funcao.h"
 
 vector<Comando *> Comando::extrair_comandos(No_arv_parse *no) {
@@ -31,6 +32,8 @@ Comando* Comando::extrair(No_arv_parse *no) {
       return CodeBlock::extrair(no->filhos[0]);
     case 29: // STATEMENT -> IF LPAREN EXPRESSION RPAREN STATEMENT ELSE_STATEMENT
       return ComandoIf::extrair(no);
+    case 31: // STATEMENT -> WHILE_RULE STATEMENT
+      return ComandoWhile::extrair(no);
     case 32: // STATEMENT -> RETURN_RULE SEMI
       return ComandoReturn::extrair(no->filhos[0]);
     case 33: // STATEMENT -> FIELD_DECL

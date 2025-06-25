@@ -14,7 +14,7 @@ Valor *Valor::of(const string &tipo) {
 
 Valor *Valor::valor_para_analise(const string &tipo) {
   if (tipo == "int") return new Int(1);
-  if (tipo == "float") return new Float(1);
+  if (tipo == "float") return new Float(1.0f);
   if (tipo == "bool") return new Bool(true);
 
   throw runtime_error("Tipo " + tipo + " não existe");

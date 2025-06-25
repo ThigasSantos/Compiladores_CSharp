@@ -1,7 +1,5 @@
 #include "TabelaDeSimbolos.h"
-
 #include <iostream>
-
 
 TabelaDeSimbolos::TabelaDeSimbolos() {
   pilha_de_tabelas = vector<map<string, Simbolo*>>();
@@ -20,33 +18,38 @@ void TabelaDeSimbolos::adicionarSimbolo(const string& nome, Funcao *val) {
 }
 
 void TabelaDeSimbolos::atualizarSimbolo(const string &simbolo, Valor *val) {
-  Simbolo *aux = nullptr;
-
-  for(auto tabela : pilha_de_tabelas)
-    aux = tabela[simbolo] ? tabela[simbolo] : aux;
-
-  if(!aux || !(aux->tipo_de_simbolo == TipoDeSimbolo::VAR)) return;
-  *aux->valor = *val;
-  ultimoValorAtribuido = val;
+  for (auto it = pilha_de_tabelas.rbegin(); it != pilha_de_tabelas.rend(); ++it) {
+    if (it->count(simbolo)) {
+      Simbolo* aux = it->at(simbolo);
+      if (aux->tipo_de_simbolo == TipoDeSimbolo::VAR) {
+        *aux->valor = *val;
+        ultimoValorAtribuido = val;
+        return;
+      }
+    }
+  }
 }
 
 Valor *TabelaDeSimbolos::buscarVariavel(const string &simbolo) {
-  Simbolo *res = nullptr;
-
-  for(auto tabela : pilha_de_tabelas)
-    res = tabela[simbolo] ? tabela[simbolo] : res;
-
-  if (res && res->tipo_de_simbolo == TipoDeSimbolo::VAR) return res->valor;
+//  cerr << "[TabelaDeSimbolos::buscarVariavel] Buscando: " << simbolo << endl;
+  for (auto it = pilha_de_tabelas.rbegin(); it != pilha_de_tabelas.rend(); ++it) {
+    if (it->count(simbolo)) {
+      Simbolo* res = it->at(simbolo);
+      if (res->tipo_de_simbolo == TipoDeSimbolo::VAR)
+        return res->valor;
+    }
+  }
   return nullptr;
 }
 
 Funcao *TabelaDeSimbolos::buscarFuncao(const string &simbolo) {
-  Simbolo *res = nullptr;
-
-  for(auto tabela : pilha_de_tabelas)
-    res = tabela[simbolo] ? tabela[simbolo] : res;
-
-  if (res && res->tipo_de_simbolo == TipoDeSimbolo::FUNC) return res->funcao;
+  for (auto it = pilha_de_tabelas.rbegin(); it != pilha_de_tabelas.rend(); ++it) {
+    if (it->count(simbolo)) {
+      Simbolo* res = it->at(simbolo);
+      if (res->tipo_de_simbolo == TipoDeSimbolo::FUNC)
+        return res->funcao;
+    }
+  }
   return nullptr;
 }
 
@@ -59,6 +62,5 @@ void TabelaDeSimbolos::popTabela() {
 }
 
 bool TabelaDeSimbolos::podeAdicionar(const string &simbolo) {
-  return pilha_de_tabelas.back()[simbolo] == nullptr;
+  return pilha_de_tabelas.back().count(simbolo) == 0;
 }
-
