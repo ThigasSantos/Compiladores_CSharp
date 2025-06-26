@@ -85,9 +85,9 @@ int main(int argc, char * argv[]) {
   for (auto* paramDef : func->parametros) {
       const string &tipo = paramDef->tipo->nome;
       if (tipo == "int") {
-          parametros_passados.push_back(new Int(3));
+          parametros_passados.push_back(new Int(4));
       } else if (tipo == "float") {
-          parametros_passados.push_back(new Float(1.3f));
+          parametros_passados.push_back(new Float(1.8f));
       } else if (tipo == "bool") {
           parametros_passados.push_back(new Bool(true));
       } else {
@@ -97,7 +97,7 @@ int main(int argc, char * argv[]) {
   }
 
   
-  cout << Analisador::calcula_ultimo_valor(func, parametros_passados) << endl;
+  Analisador::calcula_ultimo_valor(func, parametros_passados);
 
   return 0;
 }

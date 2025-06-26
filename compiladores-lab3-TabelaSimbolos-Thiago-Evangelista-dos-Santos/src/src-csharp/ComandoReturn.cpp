@@ -4,17 +4,15 @@
 #include "Expressao.h"
 
 /*
-  16) RETURN_RULE -> RETURN EXPRESSION_OPT
-  17) EXPRESSION_OPT -> EXPRESSION
-  18) EXPRESSION_OPT ->
+  39) RETURN_RULE -> RETURN EXPRESSION_OPT
+  40) EXPRESSION_OPT -> EXPRESSION
+  41) EXPRESSION_OPT ->
 */
 
 ComandoReturn* ComandoReturn::extrair(No_arv_parse* no) {
     if (!no) return nullptr;
     auto* s = new ComandoReturn();
 
-    // regra 16: RETURN_RULE -> RETURN EXPRESSION_OPT
-    // EXPRESSION_OPT pode ser vazio (regra 18), ou conter expressão (regra 17)
     if (no->filhos.size() > 1 && no->filhos[1]->filhos.size() > 0) {
         s->expr = Expressao::extrair(no->filhos[1]->filhos[0]);
     } else {

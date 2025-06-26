@@ -20,8 +20,6 @@ public:
   Arvore_parse(No_arv_parse * rr);
   void imprime(No_arv_parse * no);
   void debug();
-  //  Exp* simplificado(No_arv_parse * no);
-  //  Exp* simplifica_simbolos();
 };
 
 #endif

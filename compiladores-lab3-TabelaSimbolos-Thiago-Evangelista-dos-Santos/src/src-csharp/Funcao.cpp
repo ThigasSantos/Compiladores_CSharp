@@ -81,7 +81,6 @@ vector<Valor*> Funcao::analisar_semantica(TabelaDeSimbolos* tabela_de_simbolos) 
         );
     }
 
-    // ✅ Agora sim analisamos o corpo
     vector<Valor*> possiveis_retornos = code_block->analisar_semantica(tabela_de_simbolos);
 
     tabela_de_simbolos->popTabela();

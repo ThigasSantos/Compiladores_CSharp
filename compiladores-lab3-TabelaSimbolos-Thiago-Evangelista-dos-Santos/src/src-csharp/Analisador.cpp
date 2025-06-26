@@ -20,9 +20,17 @@ Valor * Analisador::calcula_ultimo_valor(Funcao *f, const vector<Valor *> &param
 
   T->popTabela();
 
-  if(res && res->valor) return res;
+  Valor* resultado_final = res && res->valor ? res : T->ultimoValorAtribuido;
 
-  return T->ultimoValorAtribuido;
+  if (resultado_final && resultado_final->valor) {
+    std::cout << "Ultimo valor calculado: " 
+              << resultado_final->tipo() << " " 
+              << resultado_final->toString() << std::endl;
+  } else {
+    std::cout << "Ultimo valor calculado: <nulo>" << std::endl;
+  }
+
+  return resultado_final;
 }
 
 void Analisador::validar_parametros(Funcao *f, vector<Valor *> params) {

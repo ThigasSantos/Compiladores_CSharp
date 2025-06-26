@@ -52,7 +52,7 @@ Valor* ExpressaoVariavel::analisar_semantica(TabelaDeSimbolos *tabela_de_simbolo
     throw std::runtime_error("VariavelNaoDeclarado");
   }
 
-  // Retorna uma cópia "dummy" do valor apenas para verificação de tipo
+  // Retorna uma cópia  do valor apenas para verificação de tipo
   return Valor::valor_para_analise(v->tipo());
 }
 

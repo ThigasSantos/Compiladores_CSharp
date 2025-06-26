@@ -19,7 +19,7 @@ ComandoIf *ComandoIf::extrair(No_arv_parse *no) {
   if (else_stmt->regra == 36 && else_stmt->filhos.size() == 2) {
     s->else_block = Comando::extrair(else_stmt->filhos[1]); // STATEMENT
   } else if (else_stmt->regra == 37) {
-    s->else_block = nullptr; // ε
+    s->else_block = nullptr; // Vazio
   } else {
     cerr << "[ComandoIf::extrair] ERRO: ELSE_STATEMENT inesperado. Regra=" << else_stmt->regra << endl;
     delete s;

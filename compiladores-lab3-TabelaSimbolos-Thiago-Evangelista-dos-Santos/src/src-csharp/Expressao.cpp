@@ -23,15 +23,15 @@ using namespace std;
 Expressao* Expressao::extrair(No_arv_parse* no) {
     if (!no) return nullptr;
     switch (no->regra) {
-        // Reduções transitivas: vá descendo
+        // Reducoes descendo
         case 40: case 43: case 45: case 47: case 50: case 55: case 58: case 62: case 66:
             return Expressao::extrair(no->filhos[0]);
 
-        // Atribuição
+        // Atribuicao
         case 34: // VARIABLE_ASSIGN -> ID_RULE = EXPRESSION
             return ExpressaoAtribuicao::extrair(no);
 
-        // Operadores lógicos
+        // Operadores logicos
         case 44: // LOGICAL_OR -> LOGICAL_OR || LOGICAL_AND
             return ExpressaoOu::extrair(no);
         case 46: // LOGICAL_AND -> LOGICAL_AND && EQUALITY
@@ -40,7 +40,7 @@ Expressao* Expressao::extrair(No_arv_parse* no) {
         // Igualdade e relacionais
         case 48: case 49: // == ou !=
             return ExpressaoIgualdade::extrair(no);
-        case 51: case 52: case 53: case 54: // <, <=, >, >=
+        case 51: // <
             return ExpressaoMenorQue::extrair(no);
 
         // Aritméticos
@@ -55,11 +55,11 @@ Expressao* Expressao::extrair(No_arv_parse* no) {
         case 61: // %
             return ExpressaoMod::extrair(no);
 
-        // Unários
+        // Unarios
         case 63: // !
             return ExpressaoNot::extrair(no);
 
-        // Literais e variáveis
+        // Literais e variaveis
         case 71: case 77: // primitivos
             return ExpressaoNumero::extrair(no);
         case 75: case 76:
@@ -67,7 +67,7 @@ Expressao* Expressao::extrair(No_arv_parse* no) {
         case 78: // ID_RULE
             return ExpressaoVariavel::extrair(no);
         case 79: // chamada de função
-            return ExpressaoChamada::extrair(no->filhos[0]);
+            return ExpressaoChamada::extrair(no);
         case 80: // parênteses
             return Expressao::extrair(no->filhos[1]);
 
