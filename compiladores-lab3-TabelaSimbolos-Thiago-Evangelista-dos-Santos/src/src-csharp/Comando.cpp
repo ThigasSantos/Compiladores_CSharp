@@ -27,6 +27,7 @@ vector<Comando *> Comando::extrair_comandos(No_arv_parse *no) {
 }
 
 Comando* Comando::extrair(No_arv_parse *no) {
+  // cerr << "[Comando::extrair] Regra recebida: " << no->regra << endl;
   switch (no->regra) {
     case 30: // STATEMENT -> BLOCK
       return CodeBlock::extrair(no->filhos[0]);

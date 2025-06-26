@@ -24,7 +24,7 @@ CodeBlock* CodeBlock::extrair(No_arv_parse *no) {
         if (comando) {
           block->statements.push_back(comando);
         } else {
-        //  cerr << "[CodeBlock::extrair] comando nulo extraído da regra " << stmt->regra << endl;
+          cerr << "[CodeBlock::extrair] comando nulo extraído da regra " << stmt->regra << endl;
         }
       }
     }
@@ -35,6 +35,7 @@ CodeBlock* CodeBlock::extrair(No_arv_parse *no) {
       break;
   }
 
+  // cerr << "[CodeBlock] Total de comandos: " << block->statements.size() << endl;
   return block;
 }
 

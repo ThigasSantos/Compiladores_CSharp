@@ -26,7 +26,7 @@ class Teste {
         }
 
         // Expressão com resto (%)
-        a = a % 3;
+        a = a % 2;
 
         // Return final
         return soma;

@@ -13,8 +13,10 @@ ComandoAtribuicao::~ComandoAtribuicao() {
 ComandoAtribuicao* ComandoAtribuicao::extrair(No_arv_parse* no) {
     if (!no) return nullptr;
     auto* cmd = new ComandoAtribuicao();
+    // cerr << "[ComandoAtribuicao::extrair] Tentando extrair expressao de atribuição..." << endl;
     cmd->expressao = ExpressaoAtribuicao::extrair(no);
     if (!cmd->expressao) {
+        cerr << "[ComandoAtribuicao::extrair] ERRO: expressão de atribuição retornou nulo" << endl;
         delete cmd;
         return nullptr;
     }
